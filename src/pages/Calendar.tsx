@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useClinic } from "../state/store";
 import { StatusBadge } from "../components/StatusBadge";
 import { NewAppointmentModal } from "../components/NewAppointmentModal";
+import { formatLongDate } from "../lib/date";
 
 const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
@@ -30,7 +31,7 @@ export function Calendar() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="font-headline text-[24px] font-bold text-on-surface">Calendar</h1>
-          <p className="text-[13px] text-on-surface-variant">Wednesday, 6 September 2026</p>
+          <p className="text-[13px] text-on-surface-variant">{formatLongDate(today)}</p>
         </div>
         <button
           onClick={() => setShowNew(true)}

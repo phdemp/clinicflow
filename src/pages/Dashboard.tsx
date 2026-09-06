@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useClinic } from "../state/store";
 import { StatusBadge } from "../components/StatusBadge";
 import { Avatar } from "../components/Avatar";
+import { formatShortDate } from "../lib/date";
 
 function StatCard({
   icon,
@@ -54,7 +55,7 @@ export function Dashboard() {
             Good morning, Jeetendra
           </h1>
           <p className="text-[13px] text-on-surface-variant">
-            Today, Wed 6 Sep 2026 · Jagatpura, Jaipur
+            Today, {formatShortDate(today)} · Jagatpura, Jaipur
           </p>
         </div>
         <Link
