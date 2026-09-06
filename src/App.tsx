@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ClinicProvider } from "./state/store";
 import { Layout } from "./components/Layout";
 import { RequireAuth } from "./components/RequireAuth";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Calendar } from "./pages/Calendar";
@@ -18,6 +19,7 @@ export default function App() {
   return (
     <ClinicProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/book" element={<BookingPortal />} />
