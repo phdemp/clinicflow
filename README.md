@@ -1,32 +1,39 @@
-# React + TypeScript + Vite
+# ClinicFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+MVP demo app for **ClinicFlow**, a clinic/SaaS management platform. Built off the Stitch design mockups in `../stitch_clinicflow_saas_platform/`. No backend, no database — all data is seeded and held in memory for demo purposes (resets on page reload).
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+React 19 + TypeScript + Vite + Tailwind v4 + React Router v7.
 
-## React Compiler
+## Getting started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+npm install
+npm run dev      # start dev server
+npm run build    # type-check + production build
+npm run preview  # preview a production build
+npm run lint     # oxlint
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Root route `/` is a staff login screen (demo — any email/password signs you in). `/book` is a public patient online-booking portal. Everything else lives behind login, inside the app shell.
+
+## Features
+
+- **Dashboard** — today's appointments, waiting count, revenue, doctor status
+- **Calendar** — day view schedule grid per doctor, new appointment booking
+- **Waiting Room** — live queue, move patients through waiting → in-consultation → completed
+- **Patients** — directory + per-patient profile with visit history and billing
+- **Doctors & Schedules** — roster, availability, today's appointments per doctor
+- **Billing & Payments** — invoices, mark as paid
+- **Reports & Analytics** — visit trends, revenue, appointments by doctor
+- **Communication & Reminders** — send/log patient reminders (WhatsApp/SMS/email)
+- **Online Booking Portal** (`/book`) — public-facing self-service appointment booking
+
+## Architecture
+
+- `src/data/` — seed data and types for doctors, patients, appointments, queue, invoices, messages
+- `src/state/store.tsx` — single `ClinicProvider` React Context holding all app state in memory, with actions (`addAppointment`, `advanceQueueStatus`, `markInvoicePaid`, `sendMessage`, `login`/`logout`, etc.)
+- `src/components/Layout.tsx` — persistent sidebar + header shell for authenticated routes
+- `src/pages/` — one page per screen, routed in `src/App.tsx`
+- Design tokens (colors, spacing, type scale) are ported from `harmony_clinical_precision/DESIGN.md` into a Tailwind `@theme` block in `src/index.css`
