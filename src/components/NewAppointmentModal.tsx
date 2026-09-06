@@ -42,8 +42,8 @@ export function NewAppointmentModal({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(15,23,42,0.35)] backdrop-blur-sm px-4">
-      <div className="w-full max-w-lg bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(15,23,42,0.35)] backdrop-blur-sm px-4 py-6">
+      <div className="w-full max-w-lg max-h-full overflow-y-auto bg-surface-container-lowest rounded-2xl shadow-2xl">
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/40">
           <h2 className="font-headline text-[18px] font-semibold text-on-surface">
             New Appointment

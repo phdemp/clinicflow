@@ -37,8 +37,8 @@ export function Patients() {
         </div>
       </div>
 
-      <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-sm overflow-hidden">
-        <table className="w-full text-left border-collapse">
+      <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-sm overflow-x-auto">
+        <table className="w-full min-w-[640px] text-left border-collapse">
           <thead>
             <tr className="bg-surface-container-low text-[11px] uppercase text-outline">
               <th className="px-5 py-2.5 font-semibold">Patient</th>

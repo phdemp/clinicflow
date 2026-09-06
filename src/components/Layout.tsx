@@ -1,5 +1,5 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useState, type ReactNode } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState, type ReactNode } from "react";
 import { useClinic } from "../state/store";
 import { NewAppointmentModal } from "./NewAppointmentModal";
 
@@ -37,16 +37,19 @@ function NavItem({
   label,
   icon,
   badge,
+  onNavigate,
 }: {
   to: string;
   label: string;
   icon: string;
   badge?: ReactNode;
+  onNavigate: () => void;
 }) {
   return (
     <NavLink
       to={to}
       end={to === "/dashboard"}
+      onClick={onNavigate}
       className={({ isActive }) =>
         `flex items-center justify-between px-space-md py-space-xs rounded-xl transition-colors ${
           isActive
@@ -67,40 +70,68 @@ function NavItem({
 export function Layout() {
   const { doctors, queue, currentUser, logout } = useClinic();
   const [showNewAppt, setShowNewAppt] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const waitingCount = queue.filter((q) => q.status === "waiting").length;
   const availableDoctors = doctors.filter((d) => d.status !== "off-duty").length;
 
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
+
   return (
     <div className="min-h-screen bg-surface">
-      <aside className="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto">
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-[rgba(15,23,42,0.4)] z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <aside
+        className={`fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto transition-transform duration-200 md:translate-x-0 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <div className="p-space-lg">
-          <div className="flex items-center gap-space-md mb-space-base">
-            <div className="h-9 w-9 rounded-xl bg-primary flex items-center justify-center text-on-primary font-headline font-bold">
-              C
-            </div>
-            <div className="flex flex-col">
-              <span className="font-headline text-[16px] font-semibold text-on-surface leading-tight">
-                ClinicFlow
-              </span>
-              <span className="text-[11px] text-on-surface-variant flex items-center gap-1">
-                <span className="material-symbols-outlined text-[12px] text-primary">
-                  location_on
+          <div className="flex items-center justify-between mb-space-base">
+            <div className="flex items-center gap-space-md">
+              <div className="h-9 w-9 rounded-xl bg-primary flex items-center justify-center text-on-primary font-headline font-bold">
+                C
+              </div>
+              <div className="flex flex-col">
+                <span className="font-headline text-[16px] font-semibold text-on-surface leading-tight">
+                  ClinicFlow
                 </span>
-                Indiranagar, BLR
-              </span>
+                <span className="text-[11px] text-on-surface-variant flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[12px] text-primary">
+                    location_on
+                  </span>
+                  Indiranagar, BLR
+                </span>
+              </div>
             </div>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high md:hidden"
+            >
+              <span className="material-symbols-outlined text-[20px]">close</span>
+            </button>
           </div>
           <div className="mb-space-lg">
             <button
-              onClick={() => setShowNewAppt(true)}
+              onClick={() => {
+                setShowNewAppt(true);
+                setSidebarOpen(false);
+              }}
               className="w-full flex items-center justify-between px-space-base py-space-sm bg-primary hover:bg-primary-container text-on-primary rounded-xl transition-colors shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]"
             >
               <span className="flex items-center gap-space-sm text-[14px] font-semibold">
                 <span className="material-symbols-outlined text-[18px]">add</span>
                 New Appointment
               </span>
-              <kbd className="text-[11px] bg-primary-container text-on-primary px-1 rounded">
+              <kbd className="hidden sm:inline text-[11px] bg-primary-container text-on-primary px-1 rounded">
                 N
               </kbd>
             </button>
@@ -117,6 +148,7 @@ export function Layout() {
                     to={item.to}
                     label={item.label}
                     icon={item.icon}
+                    onNavigate={() => setSidebarOpen(false)}
                     badge={
                       item.badge ? (
                         <span className="px-1.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[11px] font-semibold">
@@ -149,21 +181,27 @@ export function Layout() {
         </div>
       </aside>
 
-      <div className="pl-72">
-        <header className="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-gutter-loose flex items-center justify-between">
-          <div className="flex items-center gap-space-lg flex-1 max-w-2xl">
-            <div className="relative w-full">
+      <div className="md:pl-72">
+        <header className="fixed top-0 left-0 right-0 md:left-72 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-30 px-gutter-compact sm:px-gutter-loose flex items-center justify-between gap-2">
+          <div className="flex items-center gap-space-sm sm:gap-space-lg flex-1 min-w-0">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="p-2 -ml-1 rounded-xl text-on-surface-variant hover:bg-surface-container-high md:hidden shrink-0"
+            >
+              <span className="material-symbols-outlined text-[22px]">menu</span>
+            </button>
+            <div className="relative w-full max-w-2xl">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">
                 search
               </span>
               <input
                 className="w-full pl-10 pr-4 py-1.5 bg-surface-container-low rounded-xl text-[13px] text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest transition-colors"
-                placeholder="Search patient by name, mobile number, or appointment ID..."
+                placeholder="Search patient, phone, or appointment ID..."
                 type="text"
               />
             </div>
           </div>
-          <div className="flex items-center gap-space-lg">
+          <div className="flex items-center gap-space-xs sm:gap-space-lg shrink-0">
             <div className="hidden xl:flex items-center gap-space-sm">
               {doctors.map((d) => (
                 <span
@@ -204,13 +242,13 @@ export function Layout() {
               className="flex items-center gap-space-md pl-space-sm cursor-pointer"
               onClick={() => navigate("/patients")}
             >
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary text-[12px] font-semibold">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary text-[12px] font-semibold shrink-0">
                 {(currentUser?.name ?? "PV")
                   .split(" ")
                   .map((n) => n[0])
                   .join("")}
               </div>
-              <div className="hidden md:flex flex-col text-left">
+              <div className="hidden lg:flex flex-col text-left">
                 <span className="text-[13px] font-semibold text-on-surface leading-tight">
                   {currentUser?.name ?? "Pooja Verma"}
                 </span>
@@ -231,7 +269,7 @@ export function Layout() {
             </button>
           </div>
         </header>
-        <main className="relative pt-16 w-full bg-surface min-h-screen px-gutter-loose py-gutter-loose">
+        <main className="relative pt-16 w-full bg-surface min-h-screen px-gutter-compact sm:px-gutter-loose py-gutter-compact sm:py-gutter-loose overflow-x-hidden">
           <Outlet />
         </main>
       </div>

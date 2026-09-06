@@ -48,9 +48,9 @@ export function Dashboard() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="font-headline text-[24px] font-bold text-on-surface">
+          <h1 className="font-headline text-[22px] sm:text-[24px] font-bold text-on-surface">
             Good morning, Pooja
           </h1>
           <p className="text-[13px] text-on-surface-variant">
