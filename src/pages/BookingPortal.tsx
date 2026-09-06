@@ -42,7 +42,7 @@ export function BookingPortal() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center px-4 py-10">
+    <div className="min-h-dvh bg-surface flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-xl bg-surface-container-lowest rounded-2xl shadow-lg border border-outline-variant/40 overflow-hidden">
         <div className="px-6 py-5 border-b border-outline-variant/40 flex items-center gap-3">
           <div className="h-9 w-9 rounded-xl bg-primary flex items-center justify-center text-on-primary font-bold">

@@ -81,7 +81,7 @@ export function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-dvh bg-surface">
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-[rgba(15,23,42,0.4)] z-40 md:hidden"
@@ -90,7 +90,7 @@ export function Layout() {
       )}
 
       <aside
-        className={`fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto transition-transform duration-200 md:translate-x-0 ${
+        className={`fixed left-0 top-0 h-dvh w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto transition-transform duration-200 md:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -190,12 +190,12 @@ export function Layout() {
             >
               <span className="material-symbols-outlined text-[22px]">menu</span>
             </button>
-            <div className="relative w-full max-w-2xl">
+            <div className="relative w-full min-w-0 max-w-2xl">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">
                 search
               </span>
               <input
-                className="w-full pl-10 pr-4 py-1.5 bg-surface-container-low rounded-xl text-[13px] text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest transition-colors"
+                className="w-full min-w-0 pl-10 pr-4 py-1.5 bg-surface-container-low rounded-xl text-[13px] text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest transition-colors"
                 placeholder="Search patient, phone, or appointment ID..."
                 type="text"
               />
@@ -269,7 +269,7 @@ export function Layout() {
             </button>
           </div>
         </header>
-        <main className="relative pt-16 w-full bg-surface min-h-screen px-gutter-compact sm:px-gutter-loose py-gutter-compact sm:py-gutter-loose overflow-x-hidden">
+        <main className="relative pt-16 w-full bg-surface min-h-dvh px-gutter-compact sm:px-gutter-loose py-gutter-compact sm:py-gutter-loose overflow-x-hidden">
           <Outlet />
         </main>
       </div>

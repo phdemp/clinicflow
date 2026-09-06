@@ -21,7 +21,7 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center px-4 py-10">
+    <div className="min-h-dvh bg-surface flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center gap-2 mb-6">
           <div className="h-11 w-11 rounded-2xl bg-primary flex items-center justify-center text-on-primary font-headline font-bold text-[18px]">
