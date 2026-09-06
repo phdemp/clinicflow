@@ -51,7 +51,7 @@ export function Dashboard() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="font-headline text-[22px] sm:text-[24px] font-bold text-on-surface">
-            Good morning, Pooja
+            Good morning, Jeetendra
           </h1>
           <p className="text-[13px] text-on-surface-variant">
             Today, Wed 6 Sep 2026 · Jagatpura, Jaipur

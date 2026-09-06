@@ -250,10 +250,10 @@ export function Layout() {
               </div>
               <div className="hidden lg:flex flex-col text-left">
                 <span className="text-[13px] font-semibold text-on-surface leading-tight">
-                  {currentUser?.name ?? "Pooja Verma"}
+                  {currentUser?.name ?? "Jeetendra Shukla"}
                 </span>
                 <span className="text-[11px] text-on-surface-variant">
-                  {currentUser?.role ?? "Head Receptionist"}
+                  {currentUser?.role ?? "Head Nurse"}
                 </span>
               </div>
             </div>

@@ -5,7 +5,7 @@ import { useClinic } from "../state/store";
 export function Login() {
   const { login } = useClinic();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("skulajeetendra@gmail.com");
+  const [email, setEmail] = useState("shuklajeetendra@gmail.com");
   const [password, setPassword] = useState("demo1234");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");

@@ -51,7 +51,7 @@ const AUTH_KEY = "clinicflow_demo_auth";
 
 export function ClinicProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<{ name: string; role: string } | null>(
-    () => (sessionStorage.getItem(AUTH_KEY) ? { name: "Pooja Verma", role: "Head Receptionist" } : null),
+    () => (sessionStorage.getItem(AUTH_KEY) ? { name: "Jeetendra Shukla", role: "Head Nurse" } : null),
   );
   const [patients, setPatients] = useState<Patient[]>(seedPatients);
   const [doctorList] = useState<Doctor[]>(seedDoctors);
@@ -67,7 +67,7 @@ export function ClinicProvider({ children }: { children: ReactNode }) {
       currentUser,
       login: () => {
         sessionStorage.setItem(AUTH_KEY, "1");
-        setCurrentUser({ name: "Pooja Verma", role: "Head Receptionist" });
+        setCurrentUser({ name: "Jeetendra Shukla", role: "Head Nurse" });
       },
       logout: () => {
         sessionStorage.removeItem(AUTH_KEY);
