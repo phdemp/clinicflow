@@ -18,17 +18,38 @@ const TIME_SLOTS = [
 const APPT_TYPES = ["Consultation", "Follow-up", "New patient", "Vaccination"];
 
 export function NewAppointmentModal({ onClose }: { onClose: () => void }) {
-  const { patients, doctors, today, addAppointment } = useClinic();
-  const [patientId, setPatientId] = useState(patients[0]?.id ?? "");
+  const { patients, doctors, today, addAppointment, addPatient } = useClinic();
+  const [patientName, setPatientName] = useState("");
+  const [patientPhone, setPatientPhone] = useState("");
   const [doctorId, setDoctorId] = useState(doctors[0]?.id ?? "");
   const [time, setTime] = useState(TIME_SLOTS[0]);
   const [type, setType] = useState(APPT_TYPES[0]);
   const [reason, setReason] = useState("");
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = () => {
+    if (!patientName.trim() || !patientPhone.trim()) {
+      setError("Enter the patient's name and phone number.");
+      return;
+    }
+    const existing = patients.find((p) => p.phone.replace(/\D/g, "") === patientPhone.replace(/\D/g, ""));
+    const patient =
+      existing ??
+      addPatient({
+        name: patientName.trim(),
+        phone: patientPhone.trim(),
+        age: 0,
+        gender: "Other",
+        avatarColor: "bg-secondary",
+        lastVisit: today,
+        allergies: [],
+        conditions: [],
+        bloodGroup: "—",
+        address: "—",
+      });
     addAppointment({
-      patientId,
+      patientId: patient.id,
       doctorId,
       date: today,
       startTime: time,
@@ -67,21 +88,31 @@ export function NewAppointmentModal({ onClose }: { onClose: () => void }) {
           </div>
         ) : (
           <div className="px-6 py-5 space-y-4">
-            <div>
-              <label className="text-[11px] font-semibold text-outline uppercase tracking-wider">
-                Patient
-              </label>
-              <select
-                value={patientId}
-                onChange={(e) => setPatientId(e.target.value)}
-                className="mt-1 w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface text-[14px] text-on-surface focus:outline-none focus:border-primary"
-              >
-                {patients.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.name} · {p.phone}
-                  </option>
-                ))}
-              </select>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-[11px] font-semibold text-outline uppercase tracking-wider">
+                  Patient name
+                </label>
+                <input
+                  type="text"
+                  value={patientName}
+                  onChange={(e) => setPatientName(e.target.value)}
+                  placeholder="Full name"
+                  className="mt-1 w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface text-[14px] text-on-surface placeholder:text-outline focus:outline-none focus:border-primary"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] font-semibold text-outline uppercase tracking-wider">
+                  Phone number
+                </label>
+                <input
+                  type="number"
+                  value={patientPhone}
+                  onChange={(e) => setPatientPhone(e.target.value)}
+                  placeholder="98765 43210"
+                  className="mt-1 w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface text-[14px] text-on-surface placeholder:text-outline focus:outline-none focus:border-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+              </div>
             </div>
 
             <div>
@@ -147,6 +178,12 @@ export function NewAppointmentModal({ onClose }: { onClose: () => void }) {
                 className="mt-1 w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface text-[14px] text-on-surface placeholder:text-outline focus:outline-none focus:border-primary"
               />
             </div>
+
+            {error && (
+              <p className="text-[12px] text-status-cancelled-text bg-status-cancelled-bg border border-status-cancelled-border rounded-lg px-3 py-2">
+                {error}
+              </p>
+            )}
           </div>
         )}
 
