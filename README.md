@@ -1,6 +1,6 @@
 # ClinicFlow
 
-MVP demo app for **ClinicFlow**, a clinic/SaaS management platform. Built off the Stitch design mockups in `../stitch_clinicflow_saas_platform/`. No backend, no database — all data is seeded and held in memory for demo purposes (resets on page reload).
+MVP demo app for **ClinicFlow**, a clinic/SaaS management platform. Built off the Stitch design mockups in `../stitch_clinicflow_saas_platform/`. No backend, no database — data starts from a seeded demo dataset and is saved to your browser's `localStorage`, so any changes you make persist across reloads. Clear site data to reset back to the seed.
 
 ## Stack
 
@@ -33,7 +33,7 @@ Root route `/` is a staff login screen (demo — any email/password signs you in
 ## Architecture
 
 - `src/data/` — seed data and types for doctors, patients, appointments, queue, invoices, messages
-- `src/state/store.tsx` — single `ClinicProvider` React Context holding all app state in memory, with actions (`addAppointment`, `advanceQueueStatus`, `markInvoicePaid`, `sendMessage`, `login`/`logout`, etc.)
+- `src/state/store.tsx` — single `ClinicProvider` React Context holding all app state, persisted to `localStorage` on every change, with actions (`addAppointment`, `advanceQueueStatus`, `markInvoicePaid`, `sendMessage`, `login`/`logout`, etc.)
 - `src/components/Layout.tsx` — persistent sidebar + header shell for authenticated routes
 - `src/pages/` — one page per screen, routed in `src/App.tsx`
 - Design tokens (colors, spacing, type scale) are ported from `harmony_clinical_precision/DESIGN.md` into a Tailwind `@theme` block in `src/index.css`

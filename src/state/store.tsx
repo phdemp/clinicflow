@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   appointments as seedAppointments,
   doctors as seedDoctors,
@@ -44,21 +44,64 @@ interface ClinicState {
 
 const ClinicContext = createContext<ClinicState | null>(null);
 
-let idCounter = 1000;
-const nextId = (prefix: string) => `${prefix}${idCounter++}`;
-
 const AUTH_KEY = "clinicflow_demo_auth";
+const STORAGE_PREFIX = "clinicflow_demo_";
+const COUNTER_KEY = `${STORAGE_PREFIX}id_counter`;
+
+const KEYS = {
+  patients: `${STORAGE_PREFIX}patients`,
+  appointments: `${STORAGE_PREFIX}appointments`,
+  queue: `${STORAGE_PREFIX}queue`,
+  invoices: `${STORAGE_PREFIX}invoices`,
+  messages: `${STORAGE_PREFIX}messages`,
+} as const;
+
+function loadFromStorage<T>(key: string, fallback: T): T {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? (JSON.parse(raw) as T) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveToStorage<T>(key: string, value: T) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+let idCounter = Number(localStorage.getItem(COUNTER_KEY) ?? 1000);
+const nextId = (prefix: string) => {
+  idCounter += 1;
+  localStorage.setItem(COUNTER_KEY, String(idCounter));
+  return `${prefix}${idCounter}`;
+};
 
 export function ClinicProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<{ name: string; role: string } | null>(
     () => (sessionStorage.getItem(AUTH_KEY) ? { name: "Jeetendra Shukla", role: "Head Nurse" } : null),
   );
-  const [patients, setPatients] = useState<Patient[]>(seedPatients);
+  const [patients, setPatients] = useState<Patient[]>(() =>
+    loadFromStorage(KEYS.patients, seedPatients),
+  );
   const [doctorList] = useState<Doctor[]>(seedDoctors);
-  const [appointmentList, setAppointmentList] = useState<Appointment[]>(seedAppointments);
-  const [queueList, setQueueList] = useState<QueueEntry[]>(seedQueue);
-  const [invoiceList, setInvoiceList] = useState<Invoice[]>(seedInvoices);
-  const [messageList, setMessageList] = useState<Message[]>(seedMessages);
+  const [appointmentList, setAppointmentList] = useState<Appointment[]>(() =>
+    loadFromStorage(KEYS.appointments, seedAppointments),
+  );
+  const [queueList, setQueueList] = useState<QueueEntry[]>(() =>
+    loadFromStorage(KEYS.queue, seedQueue),
+  );
+  const [invoiceList, setInvoiceList] = useState<Invoice[]>(() =>
+    loadFromStorage(KEYS.invoices, seedInvoices),
+  );
+  const [messageList, setMessageList] = useState<Message[]>(() =>
+    loadFromStorage(KEYS.messages, seedMessages),
+  );
+
+  useEffect(() => saveToStorage(KEYS.patients, patients), [patients]);
+  useEffect(() => saveToStorage(KEYS.appointments, appointmentList), [appointmentList]);
+  useEffect(() => saveToStorage(KEYS.queue, queueList), [queueList]);
+  useEffect(() => saveToStorage(KEYS.invoices, invoiceList), [invoiceList]);
+  useEffect(() => saveToStorage(KEYS.messages, messageList), [messageList]);
 
   const value = useMemo<ClinicState>(
     () => ({
