@@ -269,7 +269,7 @@ export function Layout() {
             </button>
           </div>
         </header>
-        <main className="relative pt-16 w-full bg-surface min-h-dvh px-gutter-compact sm:px-gutter-loose py-gutter-compact sm:py-gutter-loose overflow-x-hidden">
+        <main className="relative w-full bg-surface min-h-dvh px-gutter-compact sm:px-gutter-loose pt-[calc(4rem+var(--spacing-gutter-compact))] sm:pt-[calc(4rem+var(--spacing-gutter-loose))] pb-gutter-compact sm:pb-gutter-loose overflow-x-hidden">
           <Outlet />
         </main>
       </div>
