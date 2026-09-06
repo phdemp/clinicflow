@@ -51,7 +51,7 @@ export const patients: Patient[] = [
     allergies: ["Penicillin"],
     conditions: ["Hypertension"],
     bloodGroup: "O+",
-    address: "12 MG Road, Indiranagar, Bengaluru",
+    address: "12 Gopalpura Bypass, Jagatpura, Jaipur",
   },
   {
     id: "p2",
@@ -64,7 +64,7 @@ export const patients: Patient[] = [
     allergies: [],
     conditions: ["Asthma"],
     bloodGroup: "A+",
-    address: "45 Church Street, Bengaluru",
+    address: "45 Vaishali Nagar, Jaipur",
   },
   {
     id: "p3",
@@ -77,7 +77,7 @@ export const patients: Patient[] = [
     allergies: ["Sulfa drugs"],
     conditions: ["Type 2 Diabetes", "Hypertension"],
     bloodGroup: "B+",
-    address: "7 Residency Road, Bengaluru",
+    address: "7 Malviya Nagar, Jaipur",
   },
   {
     id: "p4",
@@ -90,7 +90,7 @@ export const patients: Patient[] = [
     allergies: [],
     conditions: [],
     bloodGroup: "AB+",
-    address: "22 Koramangala 5th Block, Bengaluru",
+    address: "22 Mansarovar Sector 5, Jaipur",
   },
   {
     id: "p5",
@@ -103,7 +103,7 @@ export const patients: Patient[] = [
     allergies: ["Latex"],
     conditions: ["Osteoarthritis"],
     bloodGroup: "O-",
-    address: "9 Jayanagar 4th Block, Bengaluru",
+    address: "9 Tonk Road, Jaipur",
   },
   {
     id: "p6",
@@ -116,7 +116,7 @@ export const patients: Patient[] = [
     allergies: [],
     conditions: [],
     bloodGroup: "A-",
-    address: "3 HSR Layout Sector 2, Bengaluru",
+    address: "3 Jagatpura Main Road, Jaipur",
   },
 ];
 

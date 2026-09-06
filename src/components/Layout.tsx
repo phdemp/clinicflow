@@ -102,13 +102,13 @@ export function Layout() {
               </div>
               <div className="flex flex-col">
                 <span className="font-headline text-[16px] font-semibold text-on-surface leading-tight">
-                  ClinicFlow
+                  Jeetendra Clinic
                 </span>
                 <span className="text-[11px] text-on-surface-variant flex items-center gap-1">
                   <span className="material-symbols-outlined text-[12px] text-primary">
                     location_on
                   </span>
-                  Indiranagar, BLR
+                  Jagatpura, Jaipur
                 </span>
               </div>
             </div>

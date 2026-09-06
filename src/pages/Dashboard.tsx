@@ -54,7 +54,7 @@ export function Dashboard() {
             Good morning, Pooja
           </h1>
           <p className="text-[13px] text-on-surface-variant">
-            Today, Wed 6 Sep 2026 · Indiranagar Central
+            Today, Wed 6 Sep 2026 · Jagatpura, Jaipur
           </p>
         </div>
         <Link

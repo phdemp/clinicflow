@@ -5,7 +5,7 @@ import { useClinic } from "../state/store";
 export function Login() {
   const { login } = useClinic();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("pooja@clinicflow.demo");
+  const [email, setEmail] = useState("skulajeetendra@gmail.com");
   const [password, setPassword] = useState("demo1234");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -27,8 +27,8 @@ export function Login() {
           <div className="h-11 w-11 rounded-2xl bg-primary flex items-center justify-center text-on-primary font-headline font-bold text-[18px]">
             C
           </div>
-          <h1 className="font-headline text-[20px] font-bold text-on-surface">ClinicFlow</h1>
-          <p className="text-[13px] text-on-surface-variant">Indiranagar Central · Staff Login</p>
+          <h1 className="font-headline text-[20px] font-bold text-on-surface">Jeetendra Clinic</h1>
+          <p className="text-[13px] text-on-surface-variant">Jagatpura, Jaipur · Staff Login</p>
         </div>
 
         <form
@@ -43,7 +43,7 @@ export function Login() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@clinicflow.demo"
+              placeholder="you@jeetendraclinic.com"
               className="mt-1 w-full h-11 px-3 rounded-lg border border-outline-variant bg-surface text-[14px] text-on-surface focus:outline-none focus:border-primary"
             />
           </div>

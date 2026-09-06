@@ -50,9 +50,9 @@ export function BookingPortal() {
           </div>
           <div>
             <h1 className="font-headline text-[16px] font-semibold text-on-surface">
-              ClinicFlow · Book an Appointment
+              Jeetendra Clinic · Book an Appointment
             </h1>
-            <p className="text-[12px] text-on-surface-variant">Indiranagar Central</p>
+            <p className="text-[12px] text-on-surface-variant">Jagatpura, Jaipur</p>
           </div>
         </div>
 
